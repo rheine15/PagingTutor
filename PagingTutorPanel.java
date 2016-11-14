@@ -14,8 +14,7 @@ public class PagingTutorPanel extends JPanel {
 	JLabel f6;
 	JLabel f7;
 
-	/* Memory labels with grid that the live in */
-	//grid here
+	/* Memory labels that will be updated */
 	JLabel frame0;
 	JLabel frame1;
 	JLabel frame2;
@@ -26,26 +25,54 @@ public class PagingTutorPanel extends JPanel {
 	JLabel frame7;
 
 	public PagingTutorPanel() {
+		//need file input stuff here
+		
+		PagingTutor pTutor = new PagingTutor();
 		physM = new JLabel("Physical Memory");
 		add(physM);
 		//createrigidarea
+		JPanel grid = new JPanel(new GridLayout(0,2));
+		add(grid);
 		
 		f0 = new JLabel("Frame 0");
-		add(f0);
+		grid.add(f0);
+		frame0 = new JLabel(pTutor.getFrame(0));
+		grid.add(frame0);
+		
 		f1 = new JLabel("Frame 1");
-		add(f1);
+		grid.add(f1);
+		frame1 = new JLabel(pTutor.getFrame(1));
+		grid.add(frame1);
+
 		f2 = new JLabel("Frame 2");
-		add(f2);
+		grid.add(f2);
+		frame2 = new JLabel(pTutor.getFrame(2));
+		grid.add(frame2);
+
 		f3 = new JLabel("Frame 3");
-		add(f3);
+		grid.add(f3);
+		frame3 = new JLabel(pTutor.getFrame(3));
+		grid.add(frame3);
+
 		f4 = new JLabel("Frame 4");
-		add(f4);
+		grid.add(f4);
+		frame4 = new JLabel(pTutor.getFrame(4));
+		grid.add(frame4);
+
 		f5 = new JLabel("Frame 5");
-		add(f5);
+		grid.add(f5);
+		frame5 = new JLabel(pTutor.getFrame(5));
+		grid.add(frame5);
+
 		f6 = new JLabel("Frame 6");
-		add(f6);
+		grid.add(f6);
+		frame6 = new JLabel(pTutor.getFrame(6));
+		grid.add(frame6);
+
 		f7 = new JLabel("Frame 7");
-		add(f7);
+		grid.add(f7);
+		frame7 = new JLabel(pTutor.getFrame(7));
+		grid.add(frame7);
 		
 		ButtonListener listen = new ButtonListener();
 		JButton next = new JButton("Next..");
