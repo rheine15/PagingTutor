@@ -1,13 +1,14 @@
-import javax.swing.*;
+import javax.swing.JFrame;
 
-class PagingTutorGUI extends JFrame {
-	public PagingTutorGUI() {
-		setTitle("Paging Tutor");
-		setSize(200,300);
-	}
-
+class PagingTutorGUI {
 	public static void main(String[] args) {
-		JFrame f = new PagingTutorGUI();
-		f.show();
+		JFrame frame = new JFrame("Paging Tutor");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		PagingTutorPanel panel = new PagingTutorPanel();
+		frame.getContentPane().add(panel);
+
+		frame.pack();
+		frame.setVisible(true);
 	}
 }
