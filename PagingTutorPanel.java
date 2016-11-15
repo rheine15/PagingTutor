@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.io.*;
 
 public class PagingTutorPanel extends JPanel {
 	/* Info labels */
@@ -24,10 +25,13 @@ public class PagingTutorPanel extends JPanel {
 	JLabel frame6;
 	JLabel frame7;
 
+	File inputFile;
+	PagingTutor pTutor;
+
 	public PagingTutorPanel() {
-		//need file input stuff here
+		inputFile = (String)JOptionPane.showInputDialog("Enter file name: ");
 		
-		PagingTutor pTutor = new PagingTutor();
+		pTutor = new PagingTutor();
 		physM = new JLabel("Physical Memory");
 		add(physM);
 		//createrigidarea
@@ -79,10 +83,23 @@ public class PagingTutorPanel extends JPanel {
 		add(next);
 		next.addActionListener(listen);
 	}
+	
+	public void next(String input) {
+		pTutor.processLine(br.readLine());
+		frame0.Text = pTutor.getFrame(0);
+		frame1.Text = pTutor.getFrame(1);
+		frame2.Text = pTutor.getFrame(2);
+		frame3.Text = pTutor.getFrame(3);
+		frame4.Text = pTutor.getFrame(4);
+		frame5.Text = pTutor.getFrame(5);
+		frame6.Text = pTutor.getFrame(6);
+		frame7.Text = pTutor.getFrame(7);
+	}
 
 	private class ButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-
+			//if source is next button
+				next();
 		}
 	}
 }
