@@ -25,24 +25,32 @@ public class PagingTutorPanel extends JPanel {
 	JLabel frame6;
 	JLabel frame7;
 
+	JButton next;
 	File inputFile;
 	PagingTutor pTutor;
+	BufferedReader fileRead;
 
 	public PagingTutorPanel() {
-		inputFile = (String)JOptionPane.showInputDialog("Enter file name: ");
-		
+		inputFile = new File((String)JOptionPane.showInputDialog("Enter file name: "));
+		try {
+			fileRead = new BufferedReader(new FileReader(inputFile));
+		} catch (Exception g) {
+			System.out.println("File not opened.");
+		}
 		pTutor = new PagingTutor();
 		physM = new JLabel("Physical Memory");
 		add(physM);
-		//createrigidarea
+		add(Box.createRigidArea(new Dimension(300, 0)));	
+	
 		JPanel grid = new JPanel(new GridLayout(0,2));
 		add(grid);
+		add(Box.createRigidArea(new Dimension(300, 0)));
 		
 		f0 = new JLabel("Frame 0");
 		grid.add(f0);
 		frame0 = new JLabel(pTutor.getFrame(0));
 		grid.add(frame0);
-		
+	
 		f1 = new JLabel("Frame 1");
 		grid.add(f1);
 		frame1 = new JLabel(pTutor.getFrame(1));
@@ -62,7 +70,7 @@ public class PagingTutorPanel extends JPanel {
 		grid.add(f4);
 		frame4 = new JLabel(pTutor.getFrame(4));
 		grid.add(frame4);
-
+		
 		f5 = new JLabel("Frame 5");
 		grid.add(f5);
 		frame5 = new JLabel(pTutor.getFrame(5));
@@ -79,27 +87,37 @@ public class PagingTutorPanel extends JPanel {
 		grid.add(frame7);
 		
 		ButtonListener listen = new ButtonListener();
-		JButton next = new JButton("Next..");
+		next = new JButton("Next..");
 		add(next);
 		next.addActionListener(listen);
+		setPreferredSize(new Dimension(300, 200));
 	}
 	
-	public void next(String input) {
-		pTutor.processLine(br.readLine());
-		frame0.Text = pTutor.getFrame(0);
-		frame1.Text = pTutor.getFrame(1);
-		frame2.Text = pTutor.getFrame(2);
-		frame3.Text = pTutor.getFrame(3);
-		frame4.Text = pTutor.getFrame(4);
-		frame5.Text = pTutor.getFrame(5);
-		frame6.Text = pTutor.getFrame(6);
-		frame7.Text = pTutor.getFrame(7);
+	public void update() {
+		frame0.setText(pTutor.getFrame(0));
+		frame1.setText(pTutor.getFrame(1));
+		frame2.setText(pTutor.getFrame(2));
+		frame3.setText(pTutor.getFrame(3));
+		frame4.setText(pTutor.getFrame(4));
+		frame5.setText(pTutor.getFrame(5));
+		frame6.setText(pTutor.getFrame(6));
+		frame7.setText(pTutor.getFrame(7));
 	}
 
 	private class ButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			//if source is next button
-				next();
+			if (e.getSource() == next) {
+				try {
+					pTutor.processLine(fileRead.readLine());
+				} catch (NullPointerException n) {
+					System.exit(0);
+				} catch (Exception f) {
+					System.out.println("Err reading file.");
+					System.out.println(f);
+					System.exit(0);
+				}
+				update();
+			}
 		}
 	}
 }
