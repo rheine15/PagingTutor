@@ -3,6 +3,12 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.io.*;
 
+/*****************************************************************
+Panel that displays a simulation of the paging table.
+
+@author Bob Heine
+@version 1.0
+*****************************************************************/
 public class PagingTutorPanel extends JPanel {
 	/* Info labels */
 	JLabel physM;
@@ -25,11 +31,21 @@ public class PagingTutorPanel extends JPanel {
 	JLabel frame6;
 	JLabel frame7;
 
+	/** button to process next line */
 	JButton next;
+	
+	/** file to be parsed */
 	File inputFile;
+
+	/** backend methods */
 	PagingTutor pTutor;
+
+	/** reads the input file */
 	BufferedReader fileRead;
 
+	/*****************************************************************
+    	Default constructor creates a panel of frames to be displayed.
+	*****************************************************************/
 	public PagingTutorPanel() {
 		inputFile = new File((String)JOptionPane.showInputDialog("Enter file name: "));
 		try {
@@ -93,6 +109,10 @@ public class PagingTutorPanel extends JPanel {
 		setPreferredSize(new Dimension(300, 200));
 	}
 	
+	/*****************************************************************
+    	Updates the frame text on all frame labels.
+	@return none
+	*****************************************************************/
 	public void update() {
 		frame0.setText(pTutor.getFrame(0));
 		frame1.setText(pTutor.getFrame(1));
@@ -104,12 +124,25 @@ public class PagingTutorPanel extends JPanel {
 		frame7.setText(pTutor.getFrame(7));
 	}
 
+	/*****************************************************************
+	Class to detect what actions are performed on page.
+	@author Bob Heine
+	@version 1.0
+	*****************************************************************/
 	private class ButtonListener implements ActionListener {
+		
+		/*****************************************************************
+    		Detects when button is pressed and processes input and updates the
+		labels on panel.
+		@param e the button that is pressed
+    		@return none
+    		*****************************************************************/
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == next) {
 				try {
 					pTutor.processLine(fileRead.readLine());
 				} catch (NullPointerException n) {
+					// we have readhed the end of the file
 					System.exit(0);
 				} catch (Exception f) {
 					System.out.println("Err reading file.");
